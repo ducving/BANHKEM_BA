@@ -23,5 +23,10 @@ public class Cake {
     private List<Image> image;
 
     @ManyToOne
+    private User user;
+
+    @ManyToOne
     private TypeOfCake typeOfCake;
+
+
 }
