@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 @Service
 public class CartService implements ICartService {
@@ -42,6 +43,7 @@ public class CartService implements ICartService {
 
     }
 
+
     @Override
     public Cart saveCart(CartDto cartDto)  {
         Cart cart=cartDto.toCart();
@@ -49,5 +51,11 @@ public class CartService implements ICartService {
         cart.setCake(cakeRepo.findById(cartDto.getId_cake()).get());
         cart=iCartRepo.save(cart);
         return cart;
+    }
+
+    @Override
+    public List<Cart> findByUserId(int idUser) throws IOException {
+
+        return List.of();
     }
 }
