@@ -34,10 +34,21 @@ public class CartController {
         }
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
-
     @PostMapping
     public ResponseEntity<Cart> save(@ModelAttribute CartDto cartDto) {
         Cart cart = cartService.saveCart(cartDto);
         return new ResponseEntity<>(cart, HttpStatus.CREATED);
     }
+    @DeleteMapping("/{cakeId}/{userId}")
+    public ResponseEntity<Void> delete(@PathVariable int cakeId, @PathVariable int userId) {
+        iCartRepo.deleteByCakeIdAndUserId(cakeId,userId);
+        return ResponseEntity.ok().build();
+    }
+    @DeleteMapping("/cart/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        iCartRepo.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

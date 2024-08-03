@@ -7,6 +7,7 @@ import org.example.banbanh_be.model.TypeOfCake;
 import org.example.banbanh_be.model.User;
 import org.example.banbanh_be.repository.CakeRepo;
 import org.example.banbanh_be.repository.ITypeRepo;
+import org.example.banbanh_be.repository.IUserRepo;
 import org.example.banbanh_be.service.impl.CakeService;
 import org.example.banbanh_be.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class CakeController {
     private ITypeRepo typeRepo;
     @Autowired
     private UserService userService;
+    @Autowired
+    private IUserRepo userRepo;
 
     //hiển thị bánh
     @GetMapping
@@ -73,6 +76,16 @@ public class CakeController {
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user){
         User user1 =  userService.checkUser(user);
+        if (user1 == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user1,HttpStatus.OK);
+    }
+
+
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@ModelAttribute User user){
+        User user1 = userRepo.save(user);
         if (user1 == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

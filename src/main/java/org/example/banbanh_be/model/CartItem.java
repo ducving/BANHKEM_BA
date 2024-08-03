@@ -3,24 +3,20 @@ package org.example.banbanh_be.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
-@Entity
 @Data
-@Table(name = "cart")
-public class Cart {
+@Entity
+@Table(name = "cart_item")
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int quantity;
-    private LocalDateTime createdAt;
+    private int quantity;  // Số lượng
 
     @ManyToOne
-    private User user;
-
+    @JoinColumn(name = "cart_id", nullable = false)
+    private Cart cart;
 
     @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
     private Cake cake;
-
-
 }
