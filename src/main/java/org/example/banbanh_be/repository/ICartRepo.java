@@ -1,5 +1,6 @@
 package org.example.banbanh_be.repository;
 
+import org.example.banbanh_be.model.Cake;
 import org.example.banbanh_be.model.Cart;
 import org.example.banbanh_be.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,6 +15,7 @@ public interface ICartRepo extends JpaRepository<Cart,Integer>, JpaSpecification
     List<Cart> findByUserId(int userId);
     @Modifying
     @Transactional
-    void deleteByCakeIdAndUserId(int cakeId, int userId);
+    void deleteByUserId(int id);
+    List<Cart> findByUserAndCake(User user, Cake cake);
 
 }

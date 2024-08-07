@@ -66,7 +66,7 @@ public class CakeController {
         return new ResponseEntity<>(typeRooms, HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Cake> findHouseById(@PathVariable int id) {
+    public ResponseEntity<Cake> findCakeById(@PathVariable int id) {
         Optional<Cake> cakeOptional= cakeService.findById(id);
         if (!cakeOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

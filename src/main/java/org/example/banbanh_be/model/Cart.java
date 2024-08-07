@@ -2,6 +2,7 @@ package org.example.banbanh_be.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.banbanh_be.dto.CartDto;
 
 import java.time.LocalDateTime;
 
