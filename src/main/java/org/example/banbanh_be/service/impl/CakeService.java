@@ -7,6 +7,7 @@ import org.example.banbanh_be.model.Image;
 import org.example.banbanh_be.model.PaginateRequest;
 import org.example.banbanh_be.repository.CakeRepo;
 import org.example.banbanh_be.repository.ITypeRepo;
+import org.example.banbanh_be.repository.IUserRepo;
 import org.example.banbanh_be.repository.ImageRepo;
 import org.example.banbanh_be.service.ICakeService;
 import org.example.banbanh_be.service.ICartService;
@@ -37,6 +38,8 @@ public class CakeService implements ICakeService {
     private ImageRepo imageRepo;
     @Autowired
     private ITypeRepo typeRepo;
+    @Autowired
+    private IUserRepo userRepo;
 
     @Override
     public Cake saveCake(CakeDto cakeDto) throws IOException {
@@ -49,6 +52,41 @@ public class CakeService implements ICakeService {
         Cake cake = cakeDto.toCake();
         cake.setCreatedAt(nowWithoutSeconds);
         cake.setTypeOfCake(typeRepo.findById(cakeDto.getTypeIdCake()).get());
+        cake.setUser(userRepo.findById(cakeDto.getId_user()).get());
+        cake = cakeRepo.save(cake);
+
+
+
+//thêm ảnh
+        if (cakeDto.getImage() == null) {
+            Image image = new Image();
+            image.setName("file-upload/default.jpg");
+            image.setCake(cake);
+            imageRepo.save(image);
+        }
+        MultipartFile[] multipartFile = cakeDto.getImage();
+        for (MultipartFile file : multipartFile) {
+            String filename = file.getOriginalFilename();
+            FileCopyUtils.copy(file.getBytes(), new File(fileUpload + filename));
+            Image image = new Image();
+            image.setName(filename);
+            image.setCake(cake);
+            imageRepo.save(image);
+        }
+        return cake;
+    }
+
+    @Override
+    public Cake updateCake(CakeDto cakeDto) throws IOException {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nowWithoutSeconds = now.truncatedTo(ChronoUnit.MINUTES);
+        //thêm bánh
+
+        Cake cake = cakeDto.toCake();
+        cake.setCreatedAt(nowWithoutSeconds);
+        cake.setTypeOfCake(typeRepo.findById(cakeDto.getTypeIdCake()).get());
+        cake.setUser(userRepo.findById(cakeDto.getId_user()).get());
+        cakeRepo.findById(cakeDto.getId());
         cake = cakeRepo.save(cake);
 
 

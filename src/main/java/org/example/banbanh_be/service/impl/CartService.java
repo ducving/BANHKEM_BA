@@ -12,6 +12,7 @@ import org.example.banbanh_be.repository.IUserRepo;
 import org.example.banbanh_be.repository.OrderRepo;
 import org.example.banbanh_be.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -115,6 +116,8 @@ public class CartService implements ICartService {
 
     public void completePayment(User user) {
         List<Cart> cartItems = iCartRepo.findByUserId(user.getId());
+        Cake cake=new  Cake();
+
         for (Cart cart : cartItems) {
             Order order = new Order();
             order.setUser(user);

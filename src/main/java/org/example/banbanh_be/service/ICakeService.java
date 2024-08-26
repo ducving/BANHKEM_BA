@@ -10,4 +10,5 @@ import java.io.IOException;
 public interface ICakeService extends IGenerateService<Cake>{
     Page<Cake> findAll(CakeDto house, PaginateRequest paginateRequest);
     Cake saveCake(CakeDto cakeDto)throws IOException;
+    Cake updateCake(CakeDto cakeDto)throws IOException;
 }

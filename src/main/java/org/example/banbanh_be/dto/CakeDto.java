@@ -15,6 +15,7 @@ public class CakeDto {
     private LocalDateTime createdAt;
     private MultipartFile[] image;
     private String typeOfCake;
+    private String id_user;
 
     public String getCode() {
         return code;
@@ -44,6 +45,18 @@ public class CakeDto {
         this.typeOfCake = typeOfCake;
         return this;
     }
+
+    public int getId_user() {
+        if (id_user == null || id_user.isEmpty()) {
+            return 0;
+        }
+        return Integer.parseInt(id_user);
+    }
+
+    public void setId_user(String id_user) {
+        this.id_user = id_user;
+    }
+
     public Cake toCake(){
         Cake cake=new Cake();
         cake.setId(id);

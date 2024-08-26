@@ -11,7 +11,7 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/public/**")
-                .addResourceLocations("file:C:\\Users\\admin\\Desktop\\b\\BANHKEM_BA\\src\\main\\resources\\file_upload" );
+                .addResourceLocations("fileC:\\Users\\admin\\Downloads\\BANHKEM_BA\\src\\main\\resources\\file_upload" );
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/static/" );
     }
