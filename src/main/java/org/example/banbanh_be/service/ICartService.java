@@ -11,4 +11,5 @@ import java.util.List;
 public interface ICartService extends IGenerateService<Cart>{
     Cart saveCart(CartDto cartDto)throws IOException;
     List<Cart> findByUserId(int idUser)throws IOException;
+    Cart updateCart(CartDto cartDto) throws IOException;
 }
