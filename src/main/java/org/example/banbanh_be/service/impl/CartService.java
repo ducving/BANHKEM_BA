@@ -116,7 +116,7 @@ public class CartService implements ICartService {
 
     public void completePayment(User user) {
         List<Cart> cartItems = iCartRepo.findByUserId(user.getId());
-        Cake cake=new  Cake();
+
 
         for (Cart cart : cartItems) {
             Order order = new Order();
@@ -125,7 +125,14 @@ public class CartService implements ICartService {
             order.setQuantity(cart.getQuantity());
             order.setCreatedAt(LocalDateTime.now());
             orderRepo.save(order);
+
+            Cake cake=cart.getCake();
+            cake.setQuantity(cake.getQuantity() - cart.getQuantity());
+            cakeRepo.save(cake);
+
         }
+
+
         iCartRepo.deleteByUserId(user.getId());
     }
 

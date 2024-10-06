@@ -49,9 +49,10 @@ public class CakeController {
                 .setName(name)
                 .setTypeIdCake(typeIdCake);
         PaginateRequest paginateRequest = new PaginateRequest(page, size);
-        Page<Cake> pages = cakeService.findAll(dto, paginateRequest);
+            Page<Cake> pages = cakeService.findAll(dto, paginateRequest);
         return new ResponseEntity<>(pages.getContent(), HttpStatus.OK);
     }
+
 
     //Thêm bánh
     @PostMapping()
